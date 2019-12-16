@@ -79,7 +79,7 @@ pipeline {
                         // tags current changeset
                         sh ("git tag -a 1 -m \"versioning 1\"")
                         // deletes tag on remote in order not to fail pushing the new one
-                        sh ("git push origin :refs/tags/snapshot")
+                        sh ("git push git@github.com:Noah-Heil/meh.git :refs/tags/snapshot")
                         // pushes the tags
                         sh ("git push --tags")
                         }
