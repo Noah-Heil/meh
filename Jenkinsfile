@@ -68,18 +68,19 @@ pipeline {
         }
         stage("tag the commit with datetime") {
             steps {
-
                 withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    step {
 
-                    // use BUILD_ID for tag
-                    def tag = BUILD_ID
+                        // use BUILD_ID for tag
+                        def tag = BUILD_ID
 
-                    // configure the git credentials, these are cached in RAM for several minutes to use
-                    // this is required until https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved upstream
-                    sh "echo 'protocol=https\nhost=<git-host-goes-here>\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve "
+                        // configure the git credentials, these are cached in RAM for several minutes to use
+                        // this is required until https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved upstream
+                        sh "echo 'protocol=https\nhost=<git-host-goes-here>\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve "
 
-                    sh "git tag -a ${tag} -m '${USER} tagging'"
-                    sh "git push --tags"
+                        sh "git tag -a ${tag} -m '${USER} tagging'"
+                        sh "git push --tags"
+                    }
                 }
             }
         }
