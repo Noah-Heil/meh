@@ -58,48 +58,52 @@ pipeline {
     agent any
     stages {
         stage('Tagging') { // for display purposes
+            env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
+            env.J_GIT_CONFIG = "true"
+            env.J_USERNAME = "Jenkins CI"
+            env.J_EMAIL = "jenkins-ci@example.com"
+            env.J_CREDS_IDS = 'f62c4435-f490-4659-8afc-510efd848445' // Use credentials id from Jenkins
             // Get some code from a GitHub repository
-            sshagent(credentials: ["f62c4435-f490-4659-8afc-510efd848445"]) {
-                def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
+            steps {
+                script {
+                    echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
+                    repositoryCommiterEmail = 'ci@example.com'
+                    repositoryCommiterUsername = 'examle.com'
 
-                sh("git remote set-url origin $repository")
-                sh("git tag --force build-${env.BRANCH_NAME}")
-                sh("git push --force origin build-${env.BRANCH_NAME}")
+                    // f62c4435-f490-4659-8afc-510efd848445
+
+
+                    checkout scm
+
+                    sh "echo done"
+                    echo env.BRANCH_NAME
+                    // if (env.BRANCH_NAME == 'master') {
+
+                    sshagent(credentials: ["f62c4435-f490-4659-8afc-510efd848445"]) {
+                        def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
+
+                        sh("git remote set-url origin $repository")
+                        sh("git tag --force build-${env.BRANCH_NAME}")
+                        sh("git push --force origin build-${env.BRANCH_NAME}")
+                    }
+                        // echo "inside"
+
+                        // sh("git config user.email ${repositoryCommiterEmail}")
+                        // sh("git config user.name '${repositoryCommiterUsername}'")
+
+                        // sh "git remote set-url origin git@github.com:..."
+
+                        // // deletes current snapshot tag
+                        // sh "git tag -d snapshot || true"
+                        // // tags current changeset
+                        // sh "git tag -a snapshot -m \"passed CI\""
+                        // // deletes tag on remote in order not to fail pushing the new one
+                        // sh "git push origin :refs/tags/snapshot"
+                        // // pushes the tags
+                        // sh "git push --tags"
+                    // }
+                }
             }
-            // steps {
-            //     script {
-            //         echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
-            //         repositoryCommiterEmail = 'ci@example.com'
-            //         repositoryCommiterUsername = 'examle.com'
-
-            //         // f62c4435-f490-4659-8afc-510efd848445
-
-
-            //         checkout scm
-
-            //         sh "echo done"
-            //         echo env.BRANCH_NAME
-            //         // if (env.BRANCH_NAME == 'master') {
-
-
-            //             // echo "inside"
-
-            //             // sh("git config user.email ${repositoryCommiterEmail}")
-            //             // sh("git config user.name '${repositoryCommiterUsername}'")
-
-            //             // sh "git remote set-url origin git@github.com:..."
-
-            //             // // deletes current snapshot tag
-            //             // sh "git tag -d snapshot || true"
-            //             // // tags current changeset
-            //             // sh "git tag -a snapshot -m \"passed CI\""
-            //             // // deletes tag on remote in order not to fail pushing the new one
-            //             // sh "git push origin :refs/tags/snapshot"
-            //             // // pushes the tags
-            //             // sh "git push --tags"
-            //         // }
-            //     }
-            // }
         }
         stage('Build') { // We do want to tag for Development
             steps {
