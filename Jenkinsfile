@@ -69,8 +69,9 @@ pipeline {
                     checkout scm
 
                     sh "echo done"
-
+                    echo env.BRANCH_NAME
                     if (env.BRANCH_NAME == 'master') {
+                        echo "inside"
                         stage 'tagging'
 
                         sh("git config user.email ${repositoryCommiterEmail}")
