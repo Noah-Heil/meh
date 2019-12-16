@@ -86,6 +86,8 @@ pipeline {
                     // sh "git tag build_${gitCommit}"
                     withCredentials([usernamePassword(credentialsId: 'f62c4435-f490-4659-8afc-510efd848445', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
+                        echo "$USERNAME"
+                        echo "$PASSWORD"
                     }
                     //     // pushes the tags
                         sh ("git push --tags")
