@@ -66,7 +66,10 @@ pipeline {
 
                         sh("git remote set-url origin https://github.com/Noah-Heil/meh.git")
                         sh("git tag --force build-master")
-                        sh("git push --force origin build-master")
+                        withCredentials([usernamePassword(credentialsId: 'f62c4435-f490-4659-8afc-510efd848445', usernameVariable: 'username', passwordVariable: 'password')]){
+                        {
+                            sh("git push --force origin build-master")
+                        }
                     }
                 }
                 // script {
