@@ -85,11 +85,7 @@ pipeline {
                     //     // deletes tag on remote in order not to fail pushing the new one
                     // sh "git tag build_${gitCommit}"
                     withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        echo USERNAME
-                        echo PASSWORD
-                        sh ('echo "$PASSWORD" | base64')
-                        sh ('echo "$USERNAME" | base64')
-                        sh ("git push `https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git` :refs/tags/snapshot")
+                        sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
                         // sh ("git push origin :refs/tags/snapshot")
                     }
                     //     // pushes the tags
