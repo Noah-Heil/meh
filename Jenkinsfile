@@ -73,6 +73,7 @@ pipeline {
                     dir('targeted-dir'){
                         // sh("git config user.email ''")
                         // sh("git config user.name '<user>.com'")
+                        sh("env")
 
                         // deletes current snapshot tag
                         sh ("git tag -d 1 || true")
