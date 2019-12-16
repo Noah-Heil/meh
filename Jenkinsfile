@@ -98,7 +98,7 @@ pipeline {
                     echo "we will tag '${result}'"
                     withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', passwordVariable: 'password_name', usernameVariable: 'git_username')]) { 
                         sh """ 
-                        curl -—data '{
+                        curl -d '{
                         "tag_name": "${result}",
                         "target_commitish": "release",
                         "name": "${result}",
