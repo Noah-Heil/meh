@@ -101,7 +101,8 @@ pipeline {
                         "target_commitish": "release",
                         "name": "${result}",
                         "body": "Release of version ${result}",
-                        "draft": false, "prerelease": false}' \ https://github.com/api/v3/repos/project/repo/releases?access_token=${password_name}
+                        "draft": false, "prerelease": false}' \ 
+                        https://github.com/api/v3/repos/project/repo/releases?access_token=${password_name}
                     }"""
                 }
             }
