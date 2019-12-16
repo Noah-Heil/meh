@@ -60,7 +60,7 @@ node {
 
     agent any
     
-    def mvnHome
+    // def mvnHome
     stage('Preparation') { // for display purposes
         
         // Get some code from a GitHub repository
@@ -68,7 +68,7 @@ node {
         // Get the Maven tool.
         // ** NOTE: This 'M3' Maven tool must be configured
         // **       in the global configuration.           
-        mvnHome = tool 'M3'
+        // mvnHome = tool 'M3'
     }
     stage('Tagging') { // We do want to tag for Development
         echo "stage tagging"
