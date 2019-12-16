@@ -69,22 +69,23 @@ pipeline {
                     //     sh("git push --force origin build-master")
                     // }
 
-                    sshagent(credentials: ['e12789ef-e487-45ae-8678-34af42ef7cd0']){
-                    dir('targeted-dir'){
-                        // sh("git config user.email ''")
-                        // sh("git config user.name '<user>.com'")
-                        sh("env")
+                    // sshagent(credentials: ['e12789ef-e487-45ae-8678-34af42ef7cd0']){
+                    // dir('targeted-dir'){
+                    //     // sh("git config user.email ''")
+                    //     // sh("git config user.name '<user>.com'")
+                    //     sh("env")
 
-                        // deletes current snapshot tag
+                    //     // deletes current snapshot tag
                         sh ("git tag -d 1 || true")
-                        // tags current changeset
+                    //     // tags current changeset
                         sh ("git tag -a 1 -m \"versioning 1\"")
-                        // deletes tag on remote in order not to fail pushing the new one
-                        sh ("git push git@github.com:Noah-Heil/meh.git :refs/tags/snapshot")
-                        // pushes the tags
+                    //     // deletes tag on remote in order not to fail pushing the new one
+                    sh "git tag build_${gitCommit}"
+                        sh ("git push origin :refs/tags/snapshot")
+                    //     // pushes the tags
                         sh ("git push --tags")
-                        }
-                    }
+                    //     }
+                    // }
                 }
                 // script {
                 //     env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
