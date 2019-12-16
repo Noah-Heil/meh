@@ -60,25 +60,6 @@ pipeline {
         stage('Tagging') { // for display purposes
             // Get some code from a GitHub repository
             steps {
-                script {
-                    env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
-                    env.J_GIT_CONFIG = "true"
-                    env.J_USERNAME = "Jenkins CI"
-                    env.J_EMAIL = "jenkins-ci@example.com"
-                    env.J_CREDS_IDS = 'f62c4435-f490-4659-8afc-510efd848445' // Use credentials id from Jenkins
-                    echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
-                    repositoryCommiterEmail = 'ci@example.com'
-                    repositoryCommiterUsername = 'examle.com'
-
-                    // f62c4435-f490-4659-8afc-510efd848445
-
-
-                    checkout scm
-
-                    sh "echo done"
-                    echo env.BRANCH_NAME
-                    // if (env.BRANCH_NAME == 'master') {
-
                     sshagent(credentials: ["f62c4435-f490-4659-8afc-510efd848445"]) {
                         def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
 
@@ -86,6 +67,25 @@ pipeline {
                         sh("git tag --force build-${env.BRANCH_NAME}")
                         sh("git push --force origin build-${env.BRANCH_NAME}")
                     }
+                // script {
+                //     env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
+                //     env.J_GIT_CONFIG = "true"
+                //     env.J_USERNAME = "Jenkins CI"
+                //     env.J_EMAIL = "jenkins-ci@example.com"
+                //     env.J_CREDS_IDS = 'f62c4435-f490-4659-8afc-510efd848445' // Use credentials id from Jenkins
+                //     echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
+                //     repositoryCommiterEmail = 'ci@example.com'
+                //     repositoryCommiterUsername = 'examle.com'
+
+                //     // f62c4435-f490-4659-8afc-510efd848445
+
+
+                //     checkout scm
+
+                //     sh "echo done"
+                //     echo env.BRANCH_NAME
+                //     // if (env.BRANCH_NAME == 'master') {
+
                         // echo "inside"
 
                         // sh("git config user.email ${repositoryCommiterEmail}")
