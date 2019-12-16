@@ -70,7 +70,7 @@ pipeline {
 
                     sh "echo done"
                     echo env.BRANCH_NAME
-                    if (env.BRANCH_NAME == 'master') {
+                    // if (env.BRANCH_NAME == 'master') {
                         echo "inside"
                         stage 'tagging'
 
@@ -87,7 +87,7 @@ pipeline {
                         sh "git push origin :refs/tags/snapshot"
                         // pushes the tags
                         sh "git push --tags"
-                    }
+                    // }
                 }
             }
         }
