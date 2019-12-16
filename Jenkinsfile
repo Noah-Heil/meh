@@ -60,13 +60,13 @@ pipeline {
         stage('Tagging') { // for display purposes
             // Get some code from a GitHub repository
             steps {
-                    sshagent(credentials: ["f62c4435-f490-4659-8afc-510efd848445"]) {
-                        def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
+                sshagent(credentials: ["f62c4435-f490-4659-8afc-510efd848445"]) {
+                    def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
 
-                        sh("git remote set-url origin $repository")
-                        sh("git tag --force build-${env.BRANCH_NAME}")
-                        sh("git push --force origin build-${env.BRANCH_NAME}")
-                    }
+                    sh("git remote set-url origin $repository")
+                    sh("git tag --force build-${env.BRANCH_NAME}")
+                    sh("git push --force origin build-${env.BRANCH_NAME}")
+                }
                 // script {
                 //     env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
                 //     env.J_GIT_CONFIG = "true"
@@ -102,7 +102,7 @@ pipeline {
                         // // pushes the tags
                         // sh "git push --tags"
                     // }
-                }
+                // }
             }
         }
         stage('Build') { // We do want to tag for Development
