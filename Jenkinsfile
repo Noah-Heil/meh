@@ -76,6 +76,16 @@ pipeline {
                     //     sh("env")
 
                         checkout scm
+                        sh "git remote set-url origin git@github.com:..."
+
+                        // deletes current snapshot tag
+                        sh "git tag -d snapshot || true"
+                        // tags current changeset
+                        sh "git tag -a snapshot -m \"passed CI\""
+                        // deletes tag on remote in order not to fail pushing the new one
+                        sh "git push origin :refs/tags/snapshot"
+                        // pushes the tags
+                        sh "git push --tags"
                         // sh("git config user.email ")
                         // sh("git config user.name '${repositoryCommiterUsername}'")
                     //     // deletes current snapshot tag
@@ -84,13 +94,13 @@ pipeline {
                         // sh ("git tag -a 1 -m \"versioning 1\"")
                     //     // deletes tag on remote in order not to fail pushing the new one
                     // sh "git tag build_${gitCommit}"
-                    withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        // sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
-                        sh("git remote set-url origin https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git")
-                        sh("git tag --force build-1")
-                        sh("git push --force https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git build-1")
-                        // sh ("git push origin :refs/tags/snapshot")
-                    }
+                    // withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    //     // sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
+                    //     sh("git remote set-url origin https://github.com/Noah-Heil/meh.git")
+                    //     sh("git tag --force build-1")
+                    //     sh("git push --force https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git build-1")
+                    //     // sh ("git push origin :refs/tags/snapshot")
+                    // }
                     //     // pushes the tags
                         // sh ("git push --tags")
                     //     }
