@@ -61,14 +61,12 @@ pipeline {
             // Get some code from a GitHub repository
             steps {
                 script {
-                    sshagent(['f62c4435-f490-4659-8afc-510efd848445']) {
+                    sshagent(['e12789ef-e487-45ae-8678-34af42ef7cd0']) {
                         def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
 
-                        sh("git remote set-url origin https://github.com/Noah-Heil/meh.git")
+                        sh("git remote set-url origin git@github.com:Noah-Heil/meh.git")
                         sh("git tag --force build-master")
-                        withCredentials([usernamePassword(credentialsId: 'f62c4435-f490-4659-8afc-510efd848445', usernameVariable: 'username', passwordVariable: 'password')]){
-                            sh("git push --force https://$username:$password@github.com/Noah-Heil/meh.git build-master")
-                        }
+                        sh("git push --force origin build-master")
                     }
                 }
                 // script {
