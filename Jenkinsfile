@@ -61,7 +61,7 @@ pipeline {
             // Get some code from a GitHub repository
             steps {
                 script {
-                    sshagent(credentials: ['f62c4435-f490-4659-8afc-510efd848445']) {
+                    sshagent(['f62c4435-f490-4659-8afc-510efd848445']) {
                         def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
 
                         sh("git remote set-url origin https://github.com/Noah-Heil/meh.git")
