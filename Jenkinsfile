@@ -92,7 +92,7 @@ pipeline {
                     echo "A[\$A.\$B.\$C]">outFile """
                     nextVersion = readFile 'outFile' 
                     echo "we will tag '${nextVersion}'" 
-                    result =nextVersion.substring(nextVersion.indexOf("[")+1,nextVersion.indexOf("]");)
+                    result =nextVersion.substring(nextVersion.indexOf("[")+1,nextVersion.indexOf("]"))
                     echo "we will tag '${result}'"
                     withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', passwordVariable: 'password_name', usernameVariable: 'git_username')]) { 
                         sh """ 
