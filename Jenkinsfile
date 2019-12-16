@@ -61,12 +61,28 @@ pipeline {
             // Get some code from a GitHub repository
             steps {
                 script {
-                    sshagent(['e12789ef-e487-45ae-8678-34af42ef7cd0']) {
-                        def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
+                    // sshagent(['e12789ef-e487-45ae-8678-34af42ef7cd0']) {
+                    //     def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
 
-                        sh("git remote set-url origin git@github.com:Noah-Heil/meh.git")
-                        sh("git tag --force build-master")
-                        sh("git push --force origin build-master")
+                    //     sh("git remote set-url origin git@github.com:Noah-Heil/meh.git")
+                    //     sh("git tag --force build-master")
+                    //     sh("git push --force origin build-master")
+                    // }
+
+                    sshagent(credentials: ['e12789ef-e487-45ae-8678-34af42ef7cd0']){
+                    dir('targeted-dir'){
+                        // sh("git config user.email ''")
+                        // sh("git config user.name '<user>.com'")
+
+                        // deletes current snapshot tag
+                        sh ("git tag -d 1 || true")
+                        // tags current changeset
+                        sh ("git tag -a 1 -m \"versioning 1\"")
+                        // deletes tag on remote in order not to fail pushing the new one
+                        sh ("git push origin :refs/tags/snapshot")
+                        // pushes the tags
+                        sh ("git push --tags")
+                        }
                     }
                 }
                 // script {
