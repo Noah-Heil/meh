@@ -59,9 +59,9 @@ pipeline {
     stages {
         stage('Tagging') { // for display purposes
             // Get some code from a GitHub repository
-            echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
             script {
 
+                echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
                 repositoryCommiterEmail = 'ci@example.com'
                 repositoryCommiterUsername = 'examle.com'
 
