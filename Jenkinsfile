@@ -66,13 +66,37 @@ pipeline {
                 checkout scm 
             }
         }
+        stage("tag the commit with datetime") {
+            withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6' usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+
+                // use BUILD_ID for tag
+                def tag = BUILD_ID
+
+                // configure the git credentials, these are cached in RAM for several minutes to use
+                // this is required until https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved upstream
+                sh "echo 'protocol=https\nhost=<git-host-goes-here>\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve "
+
+                sh "git tag -a ${tag} -m '${USER} tagging'"
+                sh "git push --tags"
+            }
+        }
         stage('Auto tagging') { 
             steps {
                 script {
-                    // version=\$(git describe --tags `git rev-list -—tags —-max-count=1`)
+
+
                     // version=\$(git describe --tags)
+                    // withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', passwordVariable: 'password_name', usernameVariable: 'git_username')]) { 
+                    //     sh 'git config --local credential.helper "!p() { echo username=\\$git_username; echo password=\\$password_name; }; p"'
+                    //     sh 'git tag -m "" ${VERSION_NUMBER}'
+                    // }
+
+                    // withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'git_username', passwordVariable: 'password_name')]) {
+                    //     sh 'git push origin ${VERSION_NUMBER}'
+                    // }
+
                     sh """ 
-                    version=0.0.0
+                    version=\$(git describe --tags `git rev-list -—tags —-max-count=1`)
                     
                     #Version to get the latest tag 
                     A="\$(echo \$version|cut -d '.' -f1)"
