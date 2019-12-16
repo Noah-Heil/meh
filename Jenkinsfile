@@ -74,7 +74,8 @@ pipeline {
                     //     // sh("git config user.email ''")
                     //     // sh("git config user.name '<user>.com'")
                     //     sh("env")
-
+                        repositoryCommiterEmail = 'nceheil@gmail.com'
+                        repositoryCommiterUsername = 'Noah-Heil'
                         checkout scm
                         sh "git remote set-url origin git@github.com:..."
 
