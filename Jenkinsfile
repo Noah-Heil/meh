@@ -80,7 +80,7 @@ pipeline {
                     //     // tags current changeset
                         sh ("git tag -a 1 -m \"versioning 1\"")
                     //     // deletes tag on remote in order not to fail pushing the new one
-                    sh "git tag build_${gitCommit}"
+                    // sh "git tag build_${gitCommit}"
                         sh ("git push origin :refs/tags/snapshot")
                     //     // pushes the tags
                         sh ("git push --tags")
