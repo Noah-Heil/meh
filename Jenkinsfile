@@ -78,7 +78,7 @@ pipeline {
                         // this is required until https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved upstream
                         sh "echo 'protocol=https\nhost=https://github.com/Noah-Heil/meh\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve "
 
-                        sh "git tag -a ${tag} -m '${USER} tagging'"
+                        sh "git tag -a ${tag} -m 'Noah-Heil tagging'"
                         sh "git push --tags"
                     }
                 }
