@@ -76,13 +76,17 @@ pipeline {
                     //     sh("env")
 
                         checkout scm
+                        // sh("git config user.email ")
+                        // sh("git config user.name '${repositoryCommiterUsername}'")
                     //     // deletes current snapshot tag
                         sh ("git tag -d 1 || true")
                     //     // tags current changeset
                         sh ("git tag -a 1 -m \"versioning 1\"")
                     //     // deletes tag on remote in order not to fail pushing the new one
                     // sh "git tag build_${gitCommit}"
-                        sh ("git push origin :refs/tags/snapshot")
+                    withCredentials([usernamePassword(credentialsId: 'f62c4435-f490-4659-8afc-510efd848445', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
+                    }
                     //     // pushes the tags
                         sh ("git push --tags")
                     //     }
@@ -96,7 +100,7 @@ pipeline {
                 //     env.J_CREDS_IDS = 'f62c4435-f490-4659-8afc-510efd848445' // Use credentials id from Jenkins
                 //     echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
                 //     repositoryCommiterEmail = 'ci@example.com'
-                //     repositoryCommiterUsername = 'examle.com'
+                //     repositoryCommiterUsername = 'example.com'
 
                 //     // f62c4435-f490-4659-8afc-510efd848445
 
@@ -108,8 +112,6 @@ pipeline {
 
                         // echo "inside"
 
-                        // sh("git config user.email ${repositoryCommiterEmail}")
-                        // sh("git config user.name '${repositoryCommiterUsername}'")
 
                         // sh "git remote set-url origin git@github.com:..."
 
