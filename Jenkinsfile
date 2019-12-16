@@ -103,7 +103,7 @@ pipeline {
                         "target_commitish": "release",
                         "name": "${result}",
                         "body": "Release of version ${result}",
-                        "draft": false, "prerelease": false}' https://api.github.com/repos/Noah-Heil/meh/releases?access_token=$password_name"""
+                        "draft": false, "prerelease": false}' -X POST https://api.github.com/repos/Noah-Heil/meh/releases?access_token=$password_name"""
                     }
                 }
             }
