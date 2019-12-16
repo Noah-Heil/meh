@@ -75,6 +75,7 @@ pipeline {
                     //     // sh("git config user.name '<user>.com'")
                     //     sh("env")
 
+                        checkout scm
                     //     // deletes current snapshot tag
                         sh ("git tag -d 1 || true")
                     //     // tags current changeset
@@ -100,7 +101,6 @@ pipeline {
                 //     // f62c4435-f490-4659-8afc-510efd848445
 
 
-                //     checkout scm
 
                 //     sh "echo done"
                 //     echo env.BRANCH_NAME
