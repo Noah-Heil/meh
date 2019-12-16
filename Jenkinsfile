@@ -69,8 +69,10 @@ pipeline {
         stage('Auto tagging') { 
             steps {
                 script {
+                    // version=\$(git describe --tags `git rev-list -—tags —-max-count=1`)
+                    // version=\$(git describe --tags)
                     sh """ 
-                    version=\$(git describe --tags)
+                    version=0.0.0
                     
                     #Version to get the latest tag 
                     A="\$(echo \$version|cut -d '.' -f1)"
