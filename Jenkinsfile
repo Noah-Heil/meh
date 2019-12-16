@@ -60,12 +60,12 @@ pipeline {
         stage('Tagging') { // for display purposes
             // Get some code from a GitHub repository
             steps {
-                env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
-                env.J_GIT_CONFIG = "true"
-                env.J_USERNAME = "Jenkins CI"
-                env.J_EMAIL = "jenkins-ci@example.com"
-                env.J_CREDS_IDS = 'f62c4435-f490-4659-8afc-510efd848445' // Use credentials id from Jenkins
                 script {
+                    env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
+                    env.J_GIT_CONFIG = "true"
+                    env.J_USERNAME = "Jenkins CI"
+                    env.J_EMAIL = "jenkins-ci@example.com"
+                    env.J_CREDS_IDS = 'f62c4435-f490-4659-8afc-510efd848445' // Use credentials id from Jenkins
                     echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
                     repositoryCommiterEmail = 'ci@example.com'
                     repositoryCommiterUsername = 'examle.com'
