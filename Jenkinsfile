@@ -103,8 +103,17 @@ pipeline {
                         "target_commitish": "release",
                         "name": "${result}",
                         "body": "Release of version ${result}",
-                        "draft": false, "prerelease": false}' -X POST https://api.github.com/repos/Noah-Heil/meh/releases?access_token=$password_name"""
+                        "draft": false, "prerelease": false}' -X POST https://api.github.com/repos/Noah-Heil/meh/releases"""
                     }
+                    // withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', passwordVariable: 'password_name', usernameVariable: 'git_username')]) { 
+                    //     sh """ 
+                    //     curl -d '{
+                    //     "tag_name": "${result}",
+                    //     "target_commitish": "release",
+                    //     "name": "${result}",
+                    //     "body": "Release of version ${result}",
+                    //     "draft": false, "prerelease": false}' -X POST https://api.github.com/repos/Noah-Heil/meh/releases?access_token=$password_name"""
+                    // }
                 }
             }
         }
