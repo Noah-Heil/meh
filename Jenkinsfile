@@ -89,7 +89,8 @@ pipeline {
                         echo PASSWORD
                         sh ('echo "$PASSWORD" | base64')
                         sh ('echo "$USERNAME" | base64')
-                        sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
+                        // sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
+                        sh ("git push origin :refs/tags/snapshot")
                     }
                     //     // pushes the tags
                         sh ("git push --tags")
