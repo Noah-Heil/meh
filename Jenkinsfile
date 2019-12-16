@@ -1,4 +1,47 @@
 node {
+
+    agent any
+    
+    // def mvnHome
+    stage('Preparation') { // for display purposes
+        steps {
+            // Get some code from a GitHub repository
+            echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
+        }
+        // Get the Maven tool.
+        // ** NOTE: This 'M3' Maven tool must be configured
+        // **       in the global configuration.           
+        // mvnHome = tool 'M3'
+    }
+    stage('Tagging') { // We do want to tag for Development
+        steps {
+            echo "stage tagging"
+
+        }
+    }
+    stage('Build') {
+        steps {
+            echo "stage Build"
+
+        }
+        // Run the maven build
+        // withEnv(["MVN_HOME=$mvnHome"]) {
+            // if (isUnix()) {
+                // sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+            // } else {
+                // bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+            // }
+        // }
+    }
+    stage('Results') {
+        steps {
+            echo "stage results"
+
+        }
+        // junit '**/target/surefire-reports/TEST-*.xml'
+        // archiveArtifacts 'target/*.jar'
+    }
+
     // So here is the general flow:
     // You have a master branch which corresponds to current production code (and you dif between versions via git tags)
     // You also have a develop branch for ongoing features and bug fixes
@@ -58,35 +101,5 @@ node {
 
 
 
-    agent any
-    
-    // def mvnHome
-    stage('Preparation') { // for display purposes
-        
-        // Get some code from a GitHub repository
-        echo "git 'https://github.com/TheWeatherCompany/analytics-pipeline-insinkerator.git'"
-        // Get the Maven tool.
-        // ** NOTE: This 'M3' Maven tool must be configured
-        // **       in the global configuration.           
-        // mvnHome = tool 'M3'
-    }
-    stage('Tagging') { // We do want to tag for Development
-        echo "stage tagging"
-    }
-    stage('Build') {
-        echo "stage Build"
-        // Run the maven build
-        // withEnv(["MVN_HOME=$mvnHome"]) {
-            // if (isUnix()) {
-                // sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-            // } else {
-                // bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-            // }
-        // }
-    }
-    stage('Results') {
-        echo "stage results"
-        // junit '**/target/surefire-reports/TEST-*.xml'
-        // archiveArtifacts 'target/*.jar'
-    }
+
 }
