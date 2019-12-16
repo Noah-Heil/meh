@@ -88,7 +88,7 @@ pipeline {
                         // sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
                         sh("git remote set-url origin https://github.com/Noah-Heil/meh.git")
                         sh("git tag --force build-1")
-                        sh("git push --force origin build-1")
+                        sh("git push --force https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git build-1")
                         // sh ("git push origin :refs/tags/snapshot")
                     }
                     //     // pushes the tags
