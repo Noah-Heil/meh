@@ -83,13 +83,13 @@ pipeline {
         // withAWS(credentials:'IDofSystemCredentials') { do something } // Use Jenkins UsernamePassword credentials information (Username: AccessKeyId, Password: SecretAccessKey):
     }
     stages {
-        stage('Preparation') {
-            steps {
-                echo "Build Preparation"
-                checkout scm 
-            }
-        }
-        stage("tag the commit with datetime") {
+        // stage('Preparation') {
+        //     steps {
+        //         echo "Build Preparation"
+        //         checkout scm 
+        //     }
+        // }
+        stage("Tag commit with build id") {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
@@ -171,19 +171,6 @@ pipeline {
             // Get some code from a GitHub repository
             steps {
                 script {
-                    // sshagent(['e12789ef-e487-45ae-8678-34af42ef7cd0']) {
-                    //     def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
-
-                    //     sh("git remote set-url origin git@github.com:Noah-Heil/meh.git")
-                    //     sh("git tag --force build-master")
-                    //     sh("git push --force origin build-master")
-                    // }
-
-                    // sshagent(credentials: ['e12789ef-e487-45ae-8678-34af42ef7cd0']){
-                    // dir('targeted-dir'){
-                    //     // sh("git config user.email ''")
-                    //     // sh("git config user.name '<user>.com'")
-                    //     sh("env")
                         repositoryCommiterEmail = 'nceheil@gmail.com'
                         repositoryCommiterUsername = 'Noah-Heil'
                         checkout scm
@@ -197,26 +184,8 @@ pipeline {
                         sh "git push origin :refs/tags/snapshot"
                         // pushes the tags
                         sh "git push --tags"
-                        // sh("git config user.email ")
-                        // sh("git config user.name '${repositoryCommiterUsername}'")
-                    //     // deletes current snapshot tag
-                        // sh ("git tag -d 1 || true")
-                    //     // tags current changeset
-                        // sh ("git tag -a 1 -m \"versioning 1\"")
-                    //     // deletes tag on remote in order not to fail pushing the new one
-                    // sh "git tag build_${gitCommit}"
-                    // withCredentials([usernamePassword(credentialsId: '4fda8056-07ba-43b3-a1eb-f8e6cd8e44a6', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    //     // sh ("git push https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git :refs/tags/snapshot")
-                    //     sh("git remote set-url origin https://github.com/Noah-Heil/meh.git")
-                    //     sh("git tag --force build-1")
-                    //     sh("git push --force https://$USERNAME:$PASSWORD@github.com/Noah-Heil/meh.git build-1")
-                    //     // sh ("git push origin :refs/tags/snapshot")
-                    // }
-                    //     // pushes the tags
-                        // sh ("git push --tags")
-                    //     }
-                    // }
                 }
+                // Keeping for Nostalgia
                 // script {
                 //     env.BRANCH_NAME = "master"// BRANCH_NAME is predefined in multibranch pipeline job
                 //     env.J_GIT_CONFIG = "true"
