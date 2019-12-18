@@ -74,6 +74,7 @@ pipeline {
        String result = '0.0.0';
     }
     options {
+        ansiColor('xterm')
         // Use profile information from ~/.aws/config
 	    withAWS(profile:'myProfile') 
         // You could also do this: 
