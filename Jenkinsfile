@@ -254,9 +254,12 @@ pipeline {
         stage('Build') { // We do want to tag for Development
             steps {
                 echo "Building Tag"
+
+
                 // TODO: Checkout potentially uselful section commented out below in this same step
                 // echo "checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: repoURL, credentialsId: credential]], branches: [[name: tag-version]]],poll: false"
                 echo "sbt clean assembly"
+                // https://stackoverflow.com/questions/53210867/jenkins-pipeline-with-a-sbt-project
 
                 // Store Binary 
                 // https://stackoverflow.com/questions/36843215/how-can-i-use-the-jenkins-copy-artifacts-plugin-from-within-the-pipelines-jenki
