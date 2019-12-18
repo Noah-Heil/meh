@@ -101,7 +101,7 @@ pipeline {
                         sh "echo 'protocol=https\nhost=https://github.com/Noah-Heil/meh\nusername=${GIT_USERNAME}\npassword=${GIT_PASSWORD}\n\n' | git credential approve "
 
                         sh "git tag -a ${tag} -m 'Noah-Heil tagging'"
-                        sh "git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/..."
+                        sh "git remote set-url --push origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/Noah-Heil/meh.git"
                         sh "git push --tags"
                     }
                 }
