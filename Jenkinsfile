@@ -312,18 +312,18 @@ pipeline {
         stage('Config Management') {
             // Get configs from GitHub
             // https://stackoverflow.com/questions/40224272/using-a-jenkins-pipeline-to-checkout-multiple-git-repos-into-same-job
-            checkout([  
-                        $class: 'GitSCM', 
-                        branches: [[name: 'refs/heads/analytics-ingest-bar']], 
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'config']], 
-                        submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: 'REPLACE_ME', url: 'git@github.com:TheWeatherCompany/analytics-pipeline-data_ingest.git']]
-                    ])
+            // checkout([  
+            //             $class: 'GitSCM', 
+            //             branches: [[name: 'refs/heads/analytics-ingest-bar']], 
+            //             doGenerateSubmoduleConfigurations: false, 
+            //             extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'config']], 
+            //             submoduleCfg: [], 
+            //             userRemoteConfigs: [[credentialsId: 'REPLACE_ME', url: 'git@github.com:TheWeatherCompany/analytics-pipeline-data_ingest.git']]
+            //         ])
             steps {
                 // TODO: This script should eventually be removed and just done inside of jenkins
                 // TODO: Check if the following README section is valid: https://github.com/TheWeatherCompany/analytics-pipeline-data_ingest/tree/analytics-ingest-bar#initial-deployment-setup
-                sh '. config/utilities/analytics-pipeline-data_ingest-to-s3.sh'
+                echo "sh '. config/utilities/analytics-pipeline-data_ingest-to-s3.sh'"
             }
         }
         stage('Upload To S3') {
