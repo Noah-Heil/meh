@@ -227,7 +227,7 @@ pipeline {
 
 
                 // TODO: Checkout potentially uselful section commented out below in this same step
-                // echo "checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: repoURL, credentialsId: credential]], branches: [[name: tag-version]]],poll: false"
+                echo "checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: repoURL, credentialsId: credential]], branches: [[name: tag-version]]],poll: false"
                 echo "sbt clean assembly"
                 // https://stackoverflow.com/questions/53210867/jenkins-pipeline-with-a-sbt-project
 
@@ -238,8 +238,6 @@ pipeline {
                 echo "sh 'echo test > archive/test.txt'"
                 echo "zip zipFile: 'test.zip', archive: false, dir: 'archive'"
                 echo "archiveArtifacts artifacts: 'test.zip', fingerprint: true"
-
-
 
                 // Potentially useful:
                 // stage('Checkout') {
