@@ -352,16 +352,18 @@ pipeline {
             }
         }
         stage('Trigger hdfs Pull Jobs') {
-            // Dear Future me... Please realize the ssh connection might not work because the namenode is very restrictive on where it allows
-            // connections from (you need to be connected to both cisco vpn and or atleast the F5 big-ip edge client vpn as well...)
-            // so this could very easily cause issues when attempting to connect.
+            steps {
+                // Dear Future me... Please realize the ssh connection might not work because the namenode is very restrictive on where it allows
+                // connections from (you need to be connected to both cisco vpn and or atleast the F5 big-ip edge client vpn as well...)
+                // so this could very easily cause issues when attempting to connect.
 
-            // ~~~ Step 6 ~~~
-            // Trigger S3 Pull Jobs to:
-                // (Path Is: /opt/sparkjobs/bin/[app-name])
-                // Sync up all of the config files and newly built binaries we just uploaded to S3 in during Step 4
-            // 
-            echo 'sshCommand remote: remote, command: "ssh -t hdfsname4b01 sudo su - hdfs -c ls /opt/sparkjobs/bin/"'
+                // ~~~ Step 6 ~~~
+                // Trigger S3 Pull Jobs to:
+                    // (Path Is: /opt/sparkjobs/bin/[app-name])
+                    // Sync up all of the config files and newly built binaries we just uploaded to S3 in during Step 4
+                // 
+                echo 'sshCommand remote: remote, command: "ssh -t hdfsname4b01 sudo su - hdfs -c ls /opt/sparkjobs/bin/"'
+            }
         }
         stage('Results') {
             steps {
