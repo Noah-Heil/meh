@@ -255,7 +255,7 @@ pipeline {
             steps {
                 echo "Building Tag"
                 // TODO: Checkout potentially uselful section commented out below in this same step
-                echo "checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: repoURL, credentialsId: credential]], branches: [[name: tag-version]]],poll: false"
+                // echo "checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: repoURL, credentialsId: credential]], branches: [[name: tag-version]]],poll: false"
                 echo "sbt clean assembly"
 
                 // Store Binary 
