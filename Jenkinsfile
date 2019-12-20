@@ -11,6 +11,8 @@
 // Need to talk to devs about how they do their versioning when they
 
 
+// Changing to demo
+
 // Here is the current method we use for Bar deployment:
 // 
 // **** Preparation ****
