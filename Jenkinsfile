@@ -1,4 +1,7 @@
 // So here is the general flow:
+
+// TODO: Keith mentioned to you that you should trial this out with the bar_salesfoce_trial
+
 // You have a master branch which corresponds to current production code (and you dif between versions via git tags)
 // You also have a develop branch for ongoing features and bug fixes
 // 
