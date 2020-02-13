@@ -26,9 +26,8 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.ACCESS_TOKEN }}"
-        automatic_release_tag: "dev"
-        prerelease: false
-        draft: true
+        automatic_release_tag: "dev-${{ GITHUB_SHA }}"
+        prerelease: true
         title: "Development Build"
         files: |
           LICENSE.txt
